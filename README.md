@@ -1,5 +1,7 @@
 #  Dovepeak-Fintrack (DFT)
 
+![Dovepeak Fintrack Dashboard](./public/images/screenshot1.png)
+
 ## Overview
 
 **Dovepeak-Fintrack (DFT)** is a modern, serverless personal finance management web application designed to help individuals take control of their financial lives through structured tracking, analysis, and planning.

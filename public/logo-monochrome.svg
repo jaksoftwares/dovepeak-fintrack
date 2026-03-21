@@ -1,0 +1,13 @@
+<svg viewBox="0 0 400 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .mono { fill: #000000; }
+    .mono-accent { fill: #444444; }
+  </style>
+  <g transform="translate(10, 5) scale(0.7)">
+    <path d="M48 15 L18 80 L48 65 Z" class="mono"/>
+    <path d="M52 15 L82 80 L52 65 Z" class="mono"/>
+    <circle cx="82" cy="22" r="8" class="mono"/>
+  </g>
+  <text x="86" y="52" font-family="Inter, Poppins, -apple-system, system-ui, sans-serif" font-size="34" font-weight="800" class="mono" letter-spacing="-1">Dovepeak</text>
+  <text x="262" y="52" font-family="Inter, Poppins, -apple-system, system-ui, sans-serif" font-size="34" font-weight="400" class="mono-accent" letter-spacing="-0.5">Fintrack</text>
+</svg>

@@ -14,7 +14,7 @@ import StatCards from "@/components/dashboard/StatCards";
 import TransactionList from "@/components/dashboard/TransactionList";
 import BudgetOverview from "@/components/dashboard/BudgetOverview";
 import { Button } from "@/components/ui/Button";
-import { Card } from "@/components/ui/Card";
+import Card from "@/components/ui/Card";
 
 export default function DashboardPage() {
   const [isMounted, setIsMounted] = useState(false);

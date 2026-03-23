@@ -27,13 +27,13 @@ export default function Header() {
 
           <div className="flex items-center space-x-4">
             <Link 
-              href="/login" 
+              href="/auth/login" 
               className="hidden md:inline-block text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
             >
               Log in
             </Link>
             <Link 
-              href="/register" 
+              href="/auth/register" 
               className="inline-flex items-center justify-center rounded-xl bg-[#16A34A] px-5 py-2 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-[#16A34A] focus:ring-offset-2 transition-all shadow-sm"
             >
               Sign up

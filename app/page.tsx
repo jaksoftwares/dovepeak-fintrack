@@ -23,8 +23,8 @@ export default function LandingPage() {
               
               <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
                 <Link 
-                  href="/register" 
-                  className="inline-flex w-full sm:w-auto items-center justify-center rounded-xl bg-[#16A34A] px-8 py-3.5 text-base font-semibold text-white hover:bg-green-700 shadow-md transition-all hover:-translate-y-0.5"
+                  href="/auth/register" 
+                   className="inline-flex w-full sm:w-auto items-center justify-center rounded-xl bg-[#16A34A] px-8 py-3.5 text-base font-semibold text-white hover:bg-green-700 shadow-md transition-all hover:-translate-y-0.5"
                 >
                   Start tracking for free
                   <ArrowRight className="ml-2 h-5 w-5" />
@@ -164,7 +164,7 @@ export default function LandingPage() {
               Join today and turn scattered transactions into clear, structured progress toward your financial peace.
             </p>
             <Link 
-              href="/register" 
+              href="/auth/register" 
               className="inline-flex items-center justify-center rounded-xl bg-[#16A34A] px-10 py-4 text-lg font-bold text-white hover:bg-green-700 hover:-translate-y-1 transition-all shadow-md"
             >
               Create your free account

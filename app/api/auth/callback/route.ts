@@ -16,5 +16,5 @@ export async function GET(request: NextRequest) {
   }
 
   // Redirect to a specific error/login path securely if authentication via callback fails
-  return NextResponse.redirect(`${origin}/login?error=auth-code-error`);
+  return NextResponse.redirect(`${origin}/auth/login?error=auth-code-error`);
 }

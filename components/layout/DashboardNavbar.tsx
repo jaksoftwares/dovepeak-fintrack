@@ -1,24 +1,34 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { 
   Bell, 
   Search, 
-  Plus, 
-  User, 
   LayoutGrid, 
   TrendingUp, 
   TrendingDown,
-  ChevronDown
+  ChevronDown,
+  User
 } from "lucide-react";
 import { DASHBOARD_NAV_ITEMS } from "@/constants/navigation";
-import { cn } from "@/lib/utils";
 
 export default function DashboardNavbar() {
   const pathname = usePathname();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   
   // Find current label based on pathname
   const currentItem = DASHBOARD_NAV_ITEMS.find(item => item.href === pathname) || { label: "Dashboard" };
+
+  if (!isMounted) {
+     return (
+        <header className="h-16 border-b border-slate-200 bg-white sticky top-0 z-20" />
+     );
+  }
 
   return (
     <header className="h-16 flex items-center justify-between px-6 border-b border-slate-200 bg-white/80 backdrop-blur-md sticky top-0 z-20">

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Mail, Lock, LogIn, Github, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 
@@ -13,10 +13,15 @@ import { supabase } from "@/lib/supabase/client";
 export default function LoginPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   
   // State
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,9 +39,16 @@ export default function LoginPage() {
       }
 
       if (data.session) {
-        toast.success("Welcome back! Redirecting to dashboard...");
-        router.push("/dashboard");
-        router.refresh();
+        toast.success("Welcome back! Entering dashboard...");
+        // Use window.location.replace for a clean redirect after cookies are set
+        // to avoid any middleware/session mismatches
+        router.refresh(); // Refresh state
+        setTimeout(() => {
+           window.location.replace("/dashboard");
+        }, 100);
+      } else if (data.user && !data.session) {
+        toast.info("Identification successful, but email needs verification.");
+        router.push("/auth/verify-email");
       }
     } catch (err: any) {
       toast.error("An unexpected error occurred during login.");
@@ -44,6 +56,10 @@ export default function LoginPage() {
       setIsLoading(false);
     }
   };
+
+  if (!isMounted) {
+    return null; // prevents hydration mismatch
+  }
 
   return (
     <div className="flex flex-col gap-10">

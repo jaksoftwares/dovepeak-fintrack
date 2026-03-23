@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Mail, Lock, User, UserPlus, Eye, EyeOff, ShieldCheck, ArrowLeft, Coins } from "lucide-react";
 import { toast } from "sonner";
 
@@ -13,6 +13,7 @@ import { supabase } from "@/lib/supabase/client";
 export default function RegisterPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   // Form states
@@ -21,6 +22,10 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [currency, setCurrency] = useState("USD");
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,6 +65,8 @@ export default function RegisterPage() {
       setIsLoading(false);
     }
   };
+
+  if (!isMounted) return null;
 
   return (
     <div className="flex flex-col gap-10">
@@ -135,7 +142,7 @@ export default function RegisterPage() {
                  <Coins className="h-5 w-5" />
               </div>
               <select 
-                className="flex h-12 w-full rounded-xl border border-slate-200 bg-white pl-11 pr-10 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16A34A]/20 focus-visible:border-[#16A34A] appearance-none cursor-pointer transition-all"
+                className="flex h-12 w-full rounded-xl border border-slate-300 bg-white pl-11 pr-10 py-2 text-sm font-medium text-[#0F172A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16A34A]/20 focus-visible:border-[#16A34A] appearance-none cursor-pointer transition-all"
                 value={currency}
                 onChange={(e) => setCurrency(e.target.value)}
               >

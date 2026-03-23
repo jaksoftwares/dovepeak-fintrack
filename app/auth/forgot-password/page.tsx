@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Mail, ArrowRight, ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 
@@ -13,6 +13,11 @@ export default function ForgotPasswordPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSent, setIsSent] = useState(false);
   const [email, setEmail] = useState("");
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,6 +41,8 @@ export default function ForgotPasswordPage() {
       setIsLoading(false);
     }
   };
+
+  if (!isMounted) return null;
 
   return (
     <div className="flex flex-col gap-10">

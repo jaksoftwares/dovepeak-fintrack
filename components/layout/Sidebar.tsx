@@ -4,13 +4,24 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { LogOut, ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { DASHBOARD_NAV_ITEMS, SYSTEM_NAV_ITEMS } from "@/constants/navigation";
 
 export default function Sidebar() {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return (
+      <aside className="w-64 md:w-72 border-r border-slate-200 bg-white h-screen hidden md:block" />
+    );
+  }
 
   return (
     <aside
@@ -27,7 +38,9 @@ export default function Sidebar() {
             alt="Dovepeak Fintrack Logo"
             width={collapsed ? 32 : 180}
             height={40}
-            className={cn("h-8 w-auto transition-all", collapsed ? "" : "h-10")}
+            style={{ height: 'auto' }}
+            className={cn("transition-all", collapsed ? "w-8" : "w-auto h-10")}
+            priority
           />
         </Link>
       </div>

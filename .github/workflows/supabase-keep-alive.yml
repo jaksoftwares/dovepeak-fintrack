@@ -1,0 +1,42 @@
+name: Supabase Keep Alive
+
+on:
+  schedule:
+    # Run at 00:00 every 3 days
+    - cron: '0 0 */3 * *'
+  workflow_dispatch: # Allows manual triggering from the GitHub Actions tab
+
+jobs:
+  ping-database:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Ping Supabase API
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_ANON_KEY" ]; then
+            echo "Error: SUPABASE_URL or SUPABASE_ANON_KEY secrets are missing."
+            echo "Please add them in your GitHub repository settings under Settings > Secrets and variables > Actions."
+            exit 1
+          fi
+
+          echo "Sending ping to Supabase to keep project active..."
+          
+          # Making a light request to the Supabase REST API endpoint.
+          # This registers as activity and prevents the free tier project from pausing.
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "apikey: $SUPABASE_ANON_KEY" \
+            -H "Authorization: Bearer $SUPABASE_ANON_KEY" \
+            "$SUPABASE_URL/rest/v1/")
+            
+          echo "Supabase responded with HTTP status: $HTTP_STATUS"
+          
+          if [ "$HTTP_STATUS" -ge 200 ] && [ "$HTTP_STATUS" -lt 400 ]; then
+            echo "Successfully pinged Supabase!"
+          else
+            echo "Warning: Received unexpected status code."
+            # We don't fail the action here because the ping still reached the server 
+            # and counts as activity, even if it returned a 40x (e.g. if the root endpoint is restricted).
+          fi
